@@ -15,11 +15,15 @@ const page = (props: Props) => {
       },
       {
         baseURL: 'http://localhost:5555',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json'
         },
       })
     console.log("🚀 ~ file: page.tsx:19 ~ sigin ~ response:", response)
+  }
+
+  const sigInAsGuest = async () => {
+    const tempporaryToken = `${window.navigator.userAgent}-${Date.now()}`
   }
   return (
     <div>
@@ -36,7 +40,7 @@ const page = (props: Props) => {
         placeholder='login'
       />
       <button onClick={sigin}>Sigin</button>
-      <button onClick={sigin}>Войти как гость</button>
+      <button onClick={sigInAsGuest}>Войти как гость</button>
     </div>
   )
 }
