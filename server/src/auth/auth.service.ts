@@ -18,7 +18,7 @@ export class AuthService {
     }
     async registration(userDto: UserCreateDto) {
         const candidate = await this.userService.getUserByEmail(userDto.email)
-        if (candidate) throw new HttpException('Такой email уже есть', HttpStatus.BAD_REQUEST)
+        if (!userDto.isGuest) if (candidate) throw new HttpException('Такой email уже есть', HttpStatus.BAD_REQUEST)
         const hashPassword = await bcrypt.hash(userDto.password, 5)
         const user = await this.userService.sigUpUser({ ...userDto, password: hashPassword })
         return this.generateToken(user)

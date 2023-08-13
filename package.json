@@ -1,0 +1,14 @@
+{
+  "name": "cookieexample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "cd server&&npm run start:dev&&cd ..",
+    "start:client": "cd client&&npm run dev&&cd .."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

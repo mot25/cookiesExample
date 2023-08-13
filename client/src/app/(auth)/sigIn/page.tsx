@@ -1,4 +1,5 @@
 'use client'
+import AuthService from '@/service/Auth.service'
 import axios from 'axios'
 import React, { useState } from 'react'
 
@@ -7,23 +8,21 @@ type Props = {}
 const page = (props: Props) => {
   const [pass, setPass] = useState('pass')
   const [login, setLogin] = useState('login')
-  const sigin = async () => {
-    const response = await axios.post('/auth/sigin',
-      {
-        password: pass,
-        login
-      },
-      {
-        baseURL: 'http://localhost:5555',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-    console.log("🚀 ~ file: page.tsx:19 ~ sigin ~ response:", response)
+  const sigIn = async () => {
+    const response = await AuthService.sigIn({
+      email: login,
+      password: pass
+    })
+    console.log("🚀 ~ file: page.tsx:16 ~ sigIn ~ response:", response)
   }
 
   const sigInAsGuest = async () => {
-    const tempporaryToken = `${window.navigator.userAgent}-${Date.now()}`
+    const temporaryToken = `${window.navigator.userAgent}-${Date.now()}`
+    const response = await AuthService.sigUp({
+      isGuest: true,
+      password: temporaryToken,
+      email: null
+    })
   }
   return (
     <div>
@@ -39,7 +38,7 @@ const page = (props: Props) => {
         onChange={(e) => setLogin(e.target.value)}
         placeholder='login'
       />
-      <button onClick={sigin}>Sigin</button>
+      <button onClick={sigIn}>Sigin</button>
       <button onClick={sigInAsGuest}>Войти как гость</button>
     </div>
   )

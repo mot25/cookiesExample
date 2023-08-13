@@ -20,13 +20,17 @@ export class UserModel extends Model<UserModel, UserCreateDto> {
     @Column({ type: DataType.STRING, allowNull: false })
     password: string
 
-    @ApiProperty({ example: 'Matvey', description: 'Name пользователя' })
-    @Column({ type: DataType.STRING, allowNull: false })
+    @ApiProperty({ example: 'Matvey', description: 'Name пользователя', })
+    @Column({ type: DataType.STRING, allowNull: true })
     name: string
 
     @ApiProperty({ example: 'false', description: 'Флаг зашел как гость' })
     @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false })
     isGuest: boolean
+
+    @ApiProperty({ example: 'true', description: 'Удален или нет пользователь' })
+    @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
+    isActive: boolean
 
     @BelongsToMany(() => RoleModel, () => rolesUsersModel)
     roles: RoleModel[]
